@@ -30,8 +30,7 @@ export default function Home() {
         await api
           .get("/vagas")
           .then((response) => {
-            console.log(response.data)
-            setResult(response.data.slice(0,19))
+            setResult(response.data)
           })
           .catch((error) => console.error(error));
 
