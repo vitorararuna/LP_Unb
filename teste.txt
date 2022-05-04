@@ -1,0 +1,29 @@
+
+INICIAL
+https://br.indeed.com/empregos?l=Brasília
+
+
+
+LOCAL:          
+https://br.indeed.com/empregos?l=Brasília + &rbl=Taguatinga%2C%20DF&jlid=43e531c4e0eba731               -> taguatinga
+https://br.indeed.com/empregos?l=Brasília + &rbl=Guará%2C%20DF&jlid=7752245a540e2543                    -> guara
+https://br.indeed.com/empregos?l=Brasília + &rbl=%C3%81guas%20Claras%2C%20DF&jlid=82829dd0c30932c4      -> Aguas Claras
+https://br.indeed.com/empregos?l=Brasília + &rbl=Lago%20Sul%2C%20DF&jlid=f21a72a9247300c5               -> Lago Sul
+https://br.indeed.com/empregos?l=Brasília + &rbl=Sobradinho%2C%20DF&jlid=db071a0df6a3c6f4               -> Sobradinho
+
+
+
+TIPO DE VAGA:
+https://br.indeed.com/empregos?l=Brasília + &jt=permanent&vjk=e6552bf109667842    -> efetivo/clt
+https://br.indeed.com/empregos?l=Brasília + &jt=internship&vjk=fa0b84773ee24af2   -> estágio
+https://br.indeed.com/empregos?l=Brasília + &jt=fulltime&vjk=14a055e9217c8726     -> Tempo integral
+
+
+
+
+SALÁRIO ESTIMADO:
+https://br.indeed.com/empregos?l=Brasília + q=R$+20.000& (antes de l=Brasília)  -> +1666
+
+https://br.indeed.com/empregos?q=R$+20.000&l=Brasília    -> +1666    ->   + q=R$+20.000& (antes de l=Brasília)
+https://br.indeed.com/empregos?q=R$+60.000&l=Brasília    -> +5000    ->   + q=R$+60.000& (antes de l=Brasília)
+https://br.indeed.com/empregos?q=R$+100.000&l=Brasília    -> +8333   ->   + q=R$+100.000& (antes de l=Brasília)

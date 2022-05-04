@@ -1,84 +1,92 @@
-import React, { useState } from 'react';
-import { Container, Title, InputContent, InputText, InputContents, Submit, ResultContent, ResultTitle, GridContent} from './styles';
-
+import React, { useState, useEffect } from 'react';
+import { Container, Title, InputContent, InputText, InputContents, Submit, ResultContent, ResultTitle, GridContent, Loading} from './styles';
+import api from "../services/api"
 
 
 export default function Home() {
+    const [urlBase, setUrlbase] = useState("https://br.indeed.com/empregos?l=Brasília")
+
     const [local, setLocal] = useState("qualquer")
     const [vaga, setVaga] = useState("qualquer")
     const [salario, setSalario] = useState("qualquer")
-    const [data, setData] = useState("qualquer")
+    
     const [result, setResult] = useState([]);
 
+    const [loading, setLoading] = useState(false);
+
+    useEffect(() => { // esse é responsável em pegar as alterações
+        setUrlbase(`https://br.indeed.com/empregos?${salario !== "qualquer" ? salario : ""}l=Brasília${local !== "qualquer" ? local : ""}${vaga !== "qualquer" ? vaga : ""}`)
+      }, [local, vaga, salario])
+
     async function teste() {
-        setResult([1, 2, 3,4,5,6,7,8,9,0 ,11, 22, 33, 44, 55, 66, 77, 88,])
+        console.log(urlBase)
+        searchApi()
     }
+
+    const searchApi = async (data) => {
+        setLoading(true);
+        
+        await api
+          .get("/vagas")
+          .then((response) => {
+            console.log(response.data)
+            setResult(response.data)
+          })
+          .catch((error) => console.error(error));
+
+          setLoading(false);
+      };
+    
+
+
     return (
         <Container>
             <Title>PROJETO LP Unb-2021</Title>
 
             <InputContents>
                 <InputContent>
-                    <InputText>LOCAL</InputText>
-                    <select value={local} onChange={setLocal}>
+                    <InputText>SALÁRIO ESTIMADO</InputText>
+                    <select type="text" name="salario" value={salario} onChange={(e) => setSalario(e.target.value)}>
                         <option value="qualquer">qualquer</option>
-                        <option value="Brasília, DF">Brasília, DF</option>
-                        <option value="Distrito Federal">Distrito Federal</option>
-                        <option value="Val Paraíso de Goiás, GO">Val Paraíso de Goiás, GO</option>
-                        <option value="Ceilandia, DF">Ceilandia, DF</option>
-                        <option value="Águas Lindas de Goiás, GO">Águas Lindas de Goiás, GO</option>
-                        <option value="Luziania, GO">Luziania, GO"</option>
-                        <option value="Guará, DF">Guará, DF"</option>
-                        <option value="Águas Claras, DF">Águas Claras, DF</option>
-                        <option value="Lago Sul, DF">Lago Sul, DF</option>
+                        <option value="q=R$+20.000&">+ R$1.666,00/mês</option>
+                        <option value="q=R$+60.000&">+ R$5.000,00/mês</option>
+                        <option value="q=R$+100.000&">+ R$8.333,00/mês</option>
+                    </select>
+                </InputContent>
+                <InputContent>
+                    <InputText>LOCAL</InputText>
+                    <select type="text" name="local" value={local} onChange={(e) => setLocal(e.target.value)}>
+                        <option value="qualquer">qualquer</option>
+                        <option value="&rbl=Taguatinga%2C%20DF&jlid=43e531c4e0eba731">Taguatinga, DF</option>
+                        <option value="&rbl=Guará%2C%20DF&jlid=7752245a540e2543 ">Guará, DF"</option>
+                        <option value="&rbl=%C3%81guas%20Claras%2C%20DF&jlid=82829dd0c30932c4">Águas Claras, DF</option>
+                        <option value="&rbl=Lago%20Sul%2C%20DF&jlid=f21a72a9247300c5">Lago Sul, DF</option>
+                        <option value="&rbl=Sobradinho%2C%20DF&jlid=db071a0df6a3c6f4">Sobradinho, DF"</option>
                     </select>
                 </InputContent>
                 <InputContent>
                     <InputText>TIPO DE VAGA</InputText>
-                    <select value={vaga} onChange={setVaga}>
+                    <select type="text" name="vaga" value={vaga} onChange={(e) => setVaga(e.target.value)}>
                         <option value="qualquer">qualquer</option>
-                        <option value="">Efetivo / CLT</option>
-                        <option value="">Tempo Integral</option>
-                        <option value="">Estágio</option>
-                        <option value="">Meio Período</option>
-                        <option value="">Temporário</option>
-                        <option value="">Aprendiz</option>
-                        <option value="">Autonomo</option>
-                        <option value="">Feelancer</option>
-                    </select>
-                </InputContent>
-                <InputContent>
-                    <InputText>SALÁRIO ESTIMADO</InputText>
-                    <select value={salario} onChange={setSalario}>
-                        <option value="qualquer">qualquer</option>
-                        <option value="">+ R$1.666,00/mês</option>
-                        <option value="">+ R$3.333,00/mês</option>
-                        <option value="">+ R$5.000,00/mês</option>
-                        <option value="">+ R$6.666,00/mês</option>
-                        <option value="">+ R$8.333,00/mês</option>
-                    </select>
-                </InputContent>
-                <InputContent>
-                    <InputText>DATA DO ANÚNCIO</InputText>
-                    <select value={data} onChange={setData}>
-                        <option value="qualquer">qualquer</option>
-                        <option value="">últimas 24h</option>
-                        <option value="">Últimos 3 dias</option>
-                        <option value="">Últimos 7 dias</option>
-                        <option value="">Últimos 14 dias</option>
+                        <option value="&jt=permanent&vjk=e6552bf109667842">Efetivo / CLT</option>
+                        <option value="&jt=fulltime&vjk=14a055e9217c8726">Tempo Integral</option>
+                        <option value="&jt=internship&vjk=fa0b84773ee24af2">Estágio</option>
                     </select>
                 </InputContent>
             </InputContents>
 
             <Submit onClick={() => teste()} >PESQUISAR</Submit>
+            <Submit onClick={() => console.log(result)} >log</Submit>
+
+            {loading && <Loading>CARREGANDO RESULTADOS ...</Loading>}
 
             <GridContent>
                 {result.map((item) => (
-                    <div key={item.id}>
+                    <div key={item}>
                         <ResultContent>
-                            <ResultTitle>Cargo: </ResultTitle>
-                            <ResultTitle>Local: </ResultTitle>
-                            <a href={`https://stackoverflow.com`}>
+                            <ResultTitle>`Titulo da vaga: ${item.Titulo}`</ResultTitle>
+                            <ResultTitle>`Local: ${item.Local}`</ResultTitle>
+                            <a href={item.Link}>
                                 <ResultTitle>Acessar link da vaga</ResultTitle>
                             </a>
                         </ResultContent>

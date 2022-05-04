@@ -8,6 +8,13 @@ export const Container = styled.div`
   align-items: center;
 `;
 
+export const Loading = styled.p`
+  margin-top: 2em;
+  font-size: 2em;
+  font-weight: bold;
+  color: white;
+`;
+
 export const Input = styled.input`
   width: 100%;
   padding: 0 2rem;
@@ -100,6 +107,6 @@ export const Result = styled.p`
 
 export const GridContent = styled.div`
     display: grid;
-    grid-template-columns: auto auto auto auto auto auto;
+    grid-template-columns: auto auto auto;
     margin-top: 5px;
 `;
