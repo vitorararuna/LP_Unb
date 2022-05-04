@@ -14,6 +14,7 @@ export default function Home() {
 
     const [loading, setLoading] = useState(false);
 
+
     useEffect(() => { // esse é responsável em pegar as alterações
         setUrlbase(`https://br.indeed.com/empregos?${salario !== "qualquer" ? salario : ""}l=Brasília${local !== "qualquer" ? local : ""}${vaga !== "qualquer" ? vaga : ""}`)
       }, [local, vaga, salario])
@@ -30,7 +31,7 @@ export default function Home() {
           .get("/vagas")
           .then((response) => {
             console.log(response.data)
-            setResult(response.data)
+            setResult(response.data.slice(0,19))
           })
           .catch((error) => console.error(error));
 
@@ -76,7 +77,6 @@ export default function Home() {
             </InputContents>
 
             <Submit onClick={() => teste()} >PESQUISAR</Submit>
-            <Submit onClick={() => console.log(result)} >log</Submit>
 
             {loading && <Loading>CARREGANDO RESULTADOS ...</Loading>}
 
@@ -84,8 +84,8 @@ export default function Home() {
                 {result.map((item) => (
                     <div key={item}>
                         <ResultContent>
-                            <ResultTitle>`Titulo da vaga: ${item.Titulo}`</ResultTitle>
-                            <ResultTitle>`Local: ${item.Local}`</ResultTitle>
+                            <ResultTitle>Titulo da vaga: {item.Titulo}</ResultTitle>
+                            <ResultTitle>Local: {item.Local}</ResultTitle>
                             <a href={item.Link}>
                                 <ResultTitle>Acessar link da vaga</ResultTitle>
                             </a>
