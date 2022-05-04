@@ -4,7 +4,7 @@ import api from "../services/api"
 
 
 export default function Home() {
-    const [urlBase, setUrlbase] = useState("https://br.indeed.com/empregos?l=Brasília")
+    const [urlBase, setUrlbase] = useState("https://br.indeed.com/empregos?l=Brasilia")
 
     const [local, setLocal] = useState("qualquer")
     const [vaga, setVaga] = useState("qualquer")
@@ -16,7 +16,7 @@ export default function Home() {
 
 
     useEffect(() => { // esse é responsável em pegar as alterações
-        setUrlbase(`https://br.indeed.com/empregos?${salario !== "qualquer" ? salario : ""}l=Brasília${local !== "qualquer" ? local : ""}${vaga !== "qualquer" ? vaga : ""}`)
+        setUrlbase(`https://br.indeed.com/empregos?${salario !== "qualquer" ? salario : ""}l=Brasilia${local !== "qualquer" ? local : ""}${vaga !== "qualquer" ? vaga : ""}`)
       }, [local, vaga, salario])
 
     async function teste() {
@@ -28,7 +28,7 @@ export default function Home() {
         setLoading(true);
         
         await api
-          .get("/vagas")
+          .get(`/vagas?url=${urlBase}`)
           .then((response) => {
             setResult(response.data)
           })
@@ -85,7 +85,7 @@ export default function Home() {
                         <ResultContent>
                             <ResultTitle>Titulo da vaga: {item.Titulo}</ResultTitle>
                             <ResultTitle>Local: {item.Local}</ResultTitle>
-                            <a href={item.Link}>
+                            <a href={item.Link} target="_blank" rel="noreferrer">
                                 <ResultTitle>Acessar link da vaga</ResultTitle>
                             </a>
                         </ResultContent>
